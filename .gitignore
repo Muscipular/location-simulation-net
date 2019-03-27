@@ -1,0 +1,7 @@
+*.DotSettings.user
+.idea/
+bin/
+obj/
+packages/
+_Resharper.*/
+drivers/
