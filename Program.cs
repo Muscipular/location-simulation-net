@@ -228,18 +228,23 @@ namespace Location
                         {
                             uint slen = 0;
                             plist.plist_to_xml(plistHandle, out var result, ref slen);
-                            var xmlDocument = new XmlDocument();
-                            xmlDocument.Load(result);
-                            xmlDocument.GetElementsByTagName("");
+                            if (!result.Contains("Complete") || result.Contains("ImageMountFailed"))
+                            {
+                                Console.WriteLine("mount_image failed: " + result);
+                                return false;
+                            }
                         }
                         Console.WriteLine("mount_image done");
                     }
                     finally
                     {
-                        mounterError = mounter.mobile_image_mounter_hangup(mounterClientHandle);
-                        if (mounterError != MobileImageMounterError.Success)
+                        if (mounterClientHandle != null && !mounterClientHandle.IsClosed)
                         {
-                            Console.WriteLine("hangup failed: " + mounterError);
+                            mounterError = mounter.mobile_image_mounter_hangup(mounterClientHandle);
+                            if (mounterError != MobileImageMounterError.Success)
+                            {
+                                Console.WriteLine("hangup failed: " + mounterError);
+                            }
                         }
                     }
                 }
