@@ -205,7 +205,7 @@ namespace Location
                         mounterError = mounter.mobile_image_mounter_upload_image(mounterClientHandle, "Developer", (uint)image.Length, imageSign, (ushort)imageSign.Length,
                             ((buffer, length, data) =>
                             {
-                                Console.WriteLine($"{buffer.ToString("X")} {i} {length} {data.ToString("X")}");
+                                // Console.WriteLine($"{buffer.ToString("X")} {i} {length} {data.ToString("X")}");
                                 Marshal.Copy(image, i, buffer, (int)length);
                                 i += (int)length;
                                 return (int)length;
